@@ -21,6 +21,7 @@ import junit.framework.Assert;
 
 public class ModifyPersonalDetails_UFM_005 {
 
+	// making changes
 	private WebDriver driver;
 	private String baseUrl;
 	private UniformStoreLoginPOM storeLogin;
