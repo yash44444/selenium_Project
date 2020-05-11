@@ -10,7 +10,6 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import com.training.generics.ScreenShot;
-import com.training.pom.MyAccountPOM;
 import com.training.pom.OrderConfirmationPOM;
 import com.training.pom.UniformStoreLoginPOM;
 import com.training.pom.OrderHistoryPOM;
