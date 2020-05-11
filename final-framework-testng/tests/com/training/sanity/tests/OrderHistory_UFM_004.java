@@ -31,7 +31,7 @@ public class OrderHistory_UFM_004 {
 		properties = new Properties();
 		FileInputStream inStream = new FileInputStream("./resources/others.properties");
 		properties.load(inStream);
-		System.out.println("Hello");
+		System.out.println("Hello1234");
 	}
 
 	@BeforeClass
@@ -45,7 +45,7 @@ public class OrderHistory_UFM_004 {
 
 		driver.get(baseUrl);
 		Thread.sleep(2000);
-		System.out.println("Hello1");
+		System.out.println("Hello1234");
 	}
 
 	@AfterClass
