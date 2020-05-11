@@ -48,7 +48,7 @@ public class ModifyPersonalDetails_UFM_005 {
 		screenShot = new ScreenShot(driver);
 		driver.get(baseUrl);
 		Thread.sleep(3000);
-		System.out.println("Tryng the guthub push!!!");
+		System.out.println("Tryng the guthub push!!!!!");
 	}
 
 	@AfterClass
