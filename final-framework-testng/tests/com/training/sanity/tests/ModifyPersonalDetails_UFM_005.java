@@ -21,7 +21,7 @@ import junit.framework.Assert;
 
 public class ModifyPersonalDetails_UFM_005 {
 
-	// making changes
+	// making changes again
 	private WebDriver driver;
 	private String baseUrl;
 	private UniformStoreLoginPOM storeLogin;
@@ -30,6 +30,7 @@ public class ModifyPersonalDetails_UFM_005 {
 	private static Properties properties;
 	private ScreenShot screenShot;
 
+	// Hello 
 	@BeforeTest
 	public static void setUpBeforeClass() throws IOException {
 		properties = new Properties();
@@ -47,6 +48,7 @@ public class ModifyPersonalDetails_UFM_005 {
 		screenShot = new ScreenShot(driver);
 		driver.get(baseUrl);
 		Thread.sleep(3000);
+		System.out.println("Tring the guthub push");
 	}
 
 	@AfterClass

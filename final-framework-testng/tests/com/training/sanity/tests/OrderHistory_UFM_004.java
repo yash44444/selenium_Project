@@ -31,6 +31,7 @@ public class OrderHistory_UFM_004 {
 		properties = new Properties();
 		FileInputStream inStream = new FileInputStream("./resources/others.properties");
 		properties.load(inStream);
+		System.out.println("Hello");
 	}
 
 	@BeforeClass
