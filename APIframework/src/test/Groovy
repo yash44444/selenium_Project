@@ -1,0 +1,38 @@
+In the body if there are parameters like Id, name and you want to pass multiple data to those fields
+add those field in custom property.
+pet_id
+pet_name
+
+pass it in the body like - $(TestCase#pet_id), "$(TestCase#pet_name)"
+
+
+Datadriven testing - available only in pro version
+- Grid
+- Excel
+- Database/JDBC
+
+TC -> DataSource -> Grid -> This gives property and configuration section. -> TC ->  Datasource loop, 
+give source(Grid/Excel) and target on which to run loop.
+Under property add all headers and in configuration add multiple values for each property.
+all headers added will appear under custom property section by default.
+
+TC -> GetData -> read Grid property.
+
+DataGen - used to generate data at run time.
+Add 10 countries as parameters. DataGen helps in selecting random value out of 10.
+
+E2E - 
+Read from file - 
+File file=new File(" path  ")
+=======================================================================================================
+Datasource - select datasource, add properties ( whatever columns in the excel file )
+UUID
+Request
+Delay
+Groovy Script
+Property transfer
+File name create
+Create request file
+create response file
+Result data sink
+Data source loop

@@ -1,0 +1,75 @@
+POM - 
+Each webpage is represented as class.
+all elements in the page are represented as variables.
+all operation in the page is represented as methods.
+
+
+Framework plan - 
+--------------
+src/main/java -	
+1)config.properties -- Url, browser
+2)Listener
+3)TestData.xlsx
+4)ExcelReader
+5)TestBase - Log4j, screenshot, highlight, browser selection, wait, report, window handling. 
+6)Page factory objects of different pages of Application.
+
+src/test/java - 
+	Test cases
+
+folder - 
+	Drivers
+=======================================================================================================
+
+Class setup : 
+@BeforeClass - 
+@Test - 
+@AfterClass - end test
+
+mvn archetype:generate -DgroupId=Academy -DartifactId=E2EProject -DArchetypeArtifcatId=maven-archetype -DInteractiveMode=false
+=========================================================================================================
+How do you Globalize parameters in framework?
+Using Property class. 
+If there are common test which are common across all the framework we use globalized
+parameters. This is done by using property class.
+step1	Properties pro = new Properties();
+step2   create a property file with .p                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     roperties extension
+		Username = "C424640"
+		Password = "Password@123"
+step3   FileInputStream fis=new FileInputStream(file.properties path);
+step4   pro.load(fis);
+step5   syso(pro.getProperty("Username");
+=========================================================================================================
+How do you configure different browsers through property file ?
+    WebDriver driver;
+	if(pro.getProperty("browser").equals("firefox"))
+	{ 
+		driver = new FirefoxDriver();
+	} 
+	elseif (pro.getProperty("browser").equals("chrome"))
+	{
+   		driver = new chromeDriver();
+	} 
+	else
+	{
+  		driver = new InternetExplorerDriver();
+	}
+    driver.get(pro.getProperty("url"));
+=========================================================================================================
+
+Excel Reader
+Logs
+Mails
+Zip
+Listener
+Jenkins
+Maven  :  new - project - maven project - skip archetype
+ReportNG
+ExtentReport
+DB
+Properties
+RunModes
+TestNG
+ScreenshotUtils
+
+

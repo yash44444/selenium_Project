@@ -1,0 +1,826 @@
+JDK - The required environment to develop and run java program is called JDK. Required in Developers machine.
+JRE - The required environment only to run the program is called JRE. Required in client machines.
+JVM - JVM is interpreter responsible to read each line of code one by one and execute.
+
+JDK = JRE + Development tools.
+JRE = JVM + Library classes.
+
+JVM,JDK,JRE are platform dependent, but java is platform independent.
+
+program.java(source code) -> compile -> .class file ( byte code) -> JVM reads and interprets into machine language.
+
+The JVM performs following operation:
+    Loads code
+    Verifies code
+    Executes code
+    Provides runtime environment
+    
+JVM contains - ClassLoader, Memory area, Execution engine.
+
+=============================================================================================================================
+class Humans 
+we are objects in this class having different properties like int age, String name, double height.
+To enter the class, we have an entrance gate , called main method.
+
+- class not does occupy memory.
+- object occupy memory
+
+class Humans {
+	  			method
+	  			object
+				constructors
+				variables
+				nested class
+			}
+
+first compile - javac Humans.java [java code (.java) to byte code (.class)]
+then execute - java Humans
+
+- There can be only 1 public class in a program and any no of non public classes.
+
+Object have 3 properties - 	
+			Identity 	= name
+			state  		= data
+			behavior 	= method
+			
+Object creation : Test t = new Test();
+declaration - giving name of object .. t
+instantiation - allocating memory .. new
+initialization - using constructor .. Test()
+			
+method is called by . operator, same way data also can be assigned to the object  using reference variable ( instance variable ) 
+also known as 'Initializing object'.
+t.color="black";
+t.age=23;
+
+Data can also be assigned to the object using method --- 
+class Tennis {
+void player(String n, int a) {    ... this method will not get executed until called by object.
+ name =n;
+ age=a;
+}
+psvm() {
+Tennis t = new Tennis()
+t.player("Roger","23")
+
+You need to have a main method. This method will do its task whatever is written inside it.
+Any other method outside main method, will not do the task until it is called by the object, and for these
+object has to be created inside the main method only if they are non static methods. But if you declare the method as static, 
+no need to create object anymore to call this method. 
+You cannot call a non static method inside static  method.
+- either make the non static method as static
+- create object of class inside main method and call non static method.
+
+methods can directly invoke other methods in the same class.
+methods in class A can invoke method of class B using reference variable.
+
+DATA TYPES ------------->			
+primitive - byte, short, int, long, float, double, boolean, char.
+non primitive : string, class type
+=============================================================================================================================
+Static is a keyword. If we declare any method as static, it is known as the static method.The core advantage of the static
+method is that we can directly call the class methods and there is no need to create an object to invoke the static method. 
+The main method is executed by the JVM, so it doesn't require to create an object to invoke the main method. 
+
+OOPS concept - 
+Object	- entity that has state and behavior
+Class	- collection of objects
+Inheritance -	IS A relationship. Used to achieve run time polymorphism. ( car IS A vehicle ).
+Polymorphism -	AS A relationship.we use method overloading and method overriding to achieve polymorphism.
+Association -	HAS A  relationship. ( student HAS A name, student HAS A rollno )
+Abstraction -	Hiding internal details and showing functionality is known as abstraction.
+Encapsulation - Binding code and data together into a single unit are known as encapsulation. ex class
+
+
+Inheritance types :
+single level : a-b
+multi level : a-b-c
+Hirerchial: a-bc
+multiple : ab-c
+hybrid: a-bc-d
+
+You need to create object of child class only if you want to call the methods of parent n child class both.
+class -> data members -> main method -> object reference -> functionality -> end.
+
+How to initialize object ?
+reference variable ( s1.Id )
+method (s1.insertRecord(111,"joy"))
+constructor
+
+Something which is common, make it static, so that they can be called directly and no object is to be created.
+=============================================================================================================================
+this - keyword can be used to invoke current class variable, method, constructor.
+if names are same, we use 'this' feature of java.
+
+ int height;				// global variable
+ class Humans {
+ int age;  					// instance variable
+ static String name;   		// static variable (inside class but outside method)
+ public void dinner() {
+ int area;  				// local variable
+ area=side*side
+ }
+ 
+ 1)local variables must be initialized before using them. 
+   Accessible within the method only.
+   local variables cannot be static.
+   
+ 2)Inside main method global variables will be invoked through object only.
+ 3)In other class global variables can be directly called, no need to initialize. but local variables
+ has to be initialized before calling them.
+ 4) instance variables are initialized to default values during object creation.
+ 
+ static variable - 
+ It cannot be local i.e local variables cannot be static.
+ Memory allocation for static variable happens only once when the class is loaded in the memory. 
+ 
+ when parameters are passed they have to be stored in instance variable. 
+ class A {
+ customer("Raj",21)
+ }
+ 
+ class B {
+ String firstname;
+ double salary;
+ 
+ Employee(String firstname, double salary)
+ this.firstname=firstname;
+ this.salary=salary
+ }
+ 
+ When you call a object, toString() method of object is invoked by default internally which returns project.class.hashcode
+ =============================================================================================================================
+ Inheritance - Is A
+ extending features of parent. 
+ class child extends parent {
+ }
+ 
+Method overloading - same name, different parameter. 
+can have multiple arguments, different data types of arguments known as compile time polymorphism.
+
+    By changing number of arguments
+    By changing the data type
+	In java, Method Overloading is not possible by changing the return type of the method only.
+	Method overloading is compile time polymorphism.
+
+Method overriding - same name, same parameter in child class and parent class known as run time polymorphism.
+Overriding possible only by Inheritance.Runtime polymorphism or Dynamic Method Dispatch is a process in which
+a call to an overridden method is resolved at runtime rather than compile-time. 
+	
+	Method overriding is used for runtime polymorphism
+	Method overriding occurs in two classes that have IS-A (inheritance) relationship.
+
+If you make any variable as final, you cannot change the value of final variable(It will be constant).
+If you make any method as final, you cannot override it.
+If you make any class as final, you cannot extend it.
+
+Abstraction -  hide implementation, showing only functionality to the user.
+There are two ways to achieve abstraction in java
+    Abstract class (0 to 100%)
+    Interface (100%)
+
+Interface - interface in Java is a mechanism to achieve abstraction. 
+There can be only abstract methods in the Java interface, not method body.
+It is used to achieve abstraction and multiple inheritance in Java.
+Interface members are by default public static final.
+we cannot create object,constructor of interface since all members are unimplemented.
+keyword - implements
+
+class extends class 
+class implements interface
+class implements interface A, implements interface B  ( multiple interitance )
+interface extends interface
+interface extends interface A, extends interface B ( multiple inheritance )
+
+=============================================================================================================================
+Access modifiers - 
+          within_Class    within_Package(outside class)     Outside_Package by subclass    Outside_Package   
+private    Y					N									N							N				
+default    Y					Y									N							N				
+protected  Y					Y									Y							N				
+public     Y					Y									Y							Y				
+
+Outside_Package by subclass means through inheritance.
+=============================================================================================================================
+Exception Handling - Exception Handling is a mechanism to handle runtime errors such as 
+ClassNotFoundException, IOException, SQLException, RemoteException, etc.
+exception does not occur at compile time,it occurs only at run time.When we execute a program having
+compile errors, compiler gives warning that exception might occur at run time so handle it accordingly.
+
+
+Root class of all exception is Throwable.
+Throwable - divides into :
+	Exception - IO, SQL, RunTime, Arithmetic, NullPointer, ClassNotFound, IndexOutofBound
+	Error - OutOfMemoryError, StackOverFlowError, virtualMachineError
+	
+Exception:
+	Checked - at compile time - IOException, SQLException
+	Unchecked - at run time - NullPointer, ClassNotFound, IndexOutofBound
+
+Exception keywords
+	try - should be followed by catch or finally
+	catch/finally
+	throw - used within the method. To explicitly throw an exception.
+	throws - used with the method signature.can declare multiple exceptions
+	
+The "try" keyword is used to specify a block where we should place exception code.
+The "catch" block is used to handle the exception.
+
+	FINAL - is a keyword
+	FINALLY - is a block
+	FINALIZE - is a method
+	
+Final is used to apply restrictions on class, method and variable. Final class can't be inherited, 
+final method can't be overridden and final variable value can't be changed.
+
+Finally is used to place important code, it will be executed whether exception is handled or not.
+Finalize is used to perform clean up processing just before object is garbage collected. 
+
+try-catch is used to handle run time exception.
+
+10/0  ArithmeticException
+a[5]  ArrayIndexOutOfBoundsException
+thread.sleep(3000)  Interrupted exception, complie time error.
+
+try{
+    statement 1
+    statement 2        try block contains main flow
+    statement 3
+   }
+catch(xxx x) {
+   statement 4         catch block contains alternative flow on exception
+   }
+   statement 5
+   
+no exception - statement 1,2,3,5,NT
+exception at 2 and catch block matched - statement 1,4,5,NT
+exception at 2 and no catch block matched - 1,AT
+exception at 4 or 5 - Abnormal termination
+If exception at any statement outside try block, it will be abnormally terminated.
+
+Throw vs Throws ------->
+throw keyword is used to explicitly thrown an exception, throws is used to declare an exception.
+throw is used within the method, throws is used with method signature.
+cannot throw multiple exception, can throw multiple exception.
+throw is folowed by an instance, throws is followed by class.
+
+void m(){  
+throw new ArithmeticException("sorry");  
+} 
+
+void m()throws ArithmeticException{  
+//method code  
+}
+==============================================================================================================================
+Constructor - 
+Test t = new Test();
+Test - class name
+t - reference variable
+new - memory allocation for new object
+Test() - constructor
+
+every time object is created, constructor is executed.
+constructor name shud b same as class name.
+constructor can take parameters.
+constructor cannot have return type !
+assigns default values to instance variables.
+modifiers allowed are public, private, protected, default.
+
+if you declare a constructor yourself then default constructor will not be generated.
+Inside the class if you do not declare any constructor then compiler will generate default constructor.
+
+class Test {
+void m1() {
+   syso("m1 method")
+}
+Test() {
+   syso("This is 0 arg constructor)
+}
+Test(int a) {
+   syso("This is 1 arg constructor)
+}
+psvm()
+{ 
+Test t=new Test();
+Test t1=new Test(10);
+t.m1();
+t1.m1();
+
+why do we even need constructor ?
+w/o constructor each object may have same values. 
+Test("roger",23)  --> parameterised constructor --> instance variable initialized.
+==============================================================================================================================
+
+Methods - all the logics has to be written inside method only whether it is printing something or executing any logic.
+
+instance variables and methods can be called directly in instance area.
+instance variables and methods is to be called via object in static area.
+
+which ever method you want to call, it has to be called through main method only by creating object of the class.
+class -> main method -> object -> user method
+
+A a = new A();
+syso(a.x)
+
+Order of execution  -  Static block, instance block, constructor, and method.
+
+    The static block will execute whenever the class is loaded by JVM.
+    Instance block will execute whenever an object is created, and they are invoked before the constructors. 
+    The constructor will execute after the instance block, and it also execute every time the object is created.
+    A method is always executed at the end.
+
+=============================================================================================================================
+
+Serialization - process of converting object into byte stream to transfer it from one jvm to another
+and recreate it using deserialization method.
+
+json body - 
+---------
+{
+ "message":"hello"
+}
+
+
+Pojo class - 
+-----------
+public class Message {
+	private String message;    --> Alt+shift+s  gives you option to generate getters n setters
+	
+	public string getMessage() {
+	}
+	public string setMessage(string message) {
+	this.message=message;
+	}
+}     ------ this section creates json body w/o value
+
+	
+java object - 
+-----------
+Message m=new Message();
+m.setMessage("Hello");   ---- this sets values to the json body
+
+Rest assured request -
+-------------------
+given().body(m)
+when().post()	
+	
+}
+=============================================================================================================================
+Type casting - casting is the process to convert data of one type to another data type. Here the type of data
+is changed and not the data itself.
+
+124848 2
+
+boolean 1 bit
+
+-128 to 127
+-32768 to 32767
+-2^31 to 2^31-1
+-2^63 to 2^63-1
+
+implicit casting --> byte -> short -> int -> long -> float -> double     <-- explicit casting
+(widening)																		(narrowing)
+
+data types : primitive , reference type.
+
+primitive :																
+byte b=100;
+short s=i;        // bigger value can consume smaller value 
+
+int myInt = 9;
+double myDbl = myInt;      assigning smaller value to bigger one, no pblm.  big <-- small
+
+short s = 1000;
+byte b =  s;   assigning bigger value to smaller one.
+byte b = (byte)s;    type casting to byte.
+
+
+									 
+reference :
+class Parent {
+}
+
+class child extends Parent {
+	psvm() {
+	 Parent p=new child();    // object of child class referring to parent class -- implicit casting.
+	 Child c= (child)new Parent();   // explicit casting, referring parent class object to child class.
+										 									  
+=============================================================================================================
+static variable - 
+Local variables cannot be static, only instance variables can be.
+static keyword can be used only for inner class and not outer class.
+static variable is accessible through class only and not through object.
+Static variables are initialized only once at class level.
+=============================================================================================================================
+Array : store similar datatype variable only and we have to define which data type to use.
+int days[];
+int arr[] = new int[10];
+int arr[] = {10,20,30,40,50};
+=============================================================================================================================
+Code Reusability - Inheritance, Polymorphism ( overloading, over riding )
+Security - Abstraction, Data hiding, encapsulation.
+
+Abstraction - is hiding implementation detail i.e it exposes only the interface to the user and hides
+details of implementation. ex: car
+It can have abstract and non-abstract methods (method with the body).
+
+Abstraction is achieved by : 1) interfaces ( 100% abstraction )
+							 2) abstract class ( 0 - 100% abstraction ) 
+							 
+class car {                         
+no of tyres=4						   
+start() {
+	SOP(start with key)
+	}
+}
+
+class scooter {                            
+no of tyres=2						   
+start() {
+	SOP(start with kick)
+	}
+}
+
+abstract class Vehicle {   -- if the method is abstract then class has to be abstract
+  no of tyres;
+  abstract void start();   .... if you are not implementing body then you need to write abstract
+  }
+  
+If the class is abstract then it is not necessary method has to be abstract.
+if any class extends abstract class having abstract methods inside it , then it must implement all those abstract methods. 
+Since we are implementing the same methods having same name and arguments this concept is called method over riding.
+Also, we cannot create object of abstract class cos if we create object then it can call the method also
+but since the method is abtract i.e with no body then there is no point of creating object.
+=============================================================================================================================
+Encapsulation - wrapping code and data together in a single unit is called encapsulation.
+Hiding data and the method acting on this data from other class is known as encapsulation.
+- we make instance variables private. make variables as private.
+- To access and set the data we use public getter and setter methods.
+
+Encapsulation concept is used in Rest assured framework. 
+=============================================================================================================================
+Collections - To represent group of individual objects as single entity.it is a collection of
+interfaces and classes which helps in storing and processing data efficiently.
+
+Why we need collections ?
+To store a single data we can store it in a variable. If we have 2 or 3 data also we can use variables.
+but if we have 10000 data then declaring 10000 variable is not a good practice. In this case we can use
+arrays which can store n no of data but there are problems with the arrays.
+chairs[] c=new chairs[10000];
+
+- Fixed in size. Array size once declared cannot be changed later. 
+- can hold only homogeneous data.
+- there are no inbuilt methods available for array operations.
+
+variable -> Array -> Collections : List, Set, Map
+
+Solution to above limitations is collections.
+- collections are growable
+- can store any kind of data
+- in built methods available to support collections.
+
+key interfaces of collection framework -  LIST, SET, MAP
+----------------------------------------
+Root interface of collection framework is Collection.All the collections come under util package.
+
+collection(I)
+	List(I)
+		Array list(c), Linked list(c), vector(c)  .... allows duplicate, dynamic size
+	Set(I)
+		HashSet(c), treeSet(c), LinkedHashSet(c)  ... not allow duplicate, 
+	Map(I)
+		HashMap(c)
+	
+		
+Array have fixed size, Arraylist have dynamic size.
+ArrayList<String> a=new ArrayList<integer>();  ... imp
+a.indexOf(),a.size(),a.get(),a.contains(),a.add()
+
+HashMap<Integer,String> hm=new HashMap<Integer,String>();
+
+Arraylist - Heterogeneous, duplicate allowed, insertion order preserved, null allowed, random access.
+Linkedlist - Heterogeneous,duplicate allowed,insertion order preserved,null allowed, sequential access only
+Hashset - Heterogenous, duplicate not allowed, null allowed, insertion not preserved,uses hash table.
+LinkedHashset - Hetrogeneous, duplicate not allowed, null allowed, insertion preserved.	
+
+=============================================================================================================================
+Loops - 
+
+if(condition) {
+}
+
+break; statement if not allowed in if loop.
+
+int time = 22;
+if (time < 10) {
+  System.out.println("Good morning.");
+} else if (time < 20) {
+  System.out.println("Good day.");
+} else {
+  System.out.println("Good evening.");
+}
+
+
+For-Each Loop
+for (type variableName : arrayName) {
+  // code block to be executed
+}
+
+String[] cars = {"Volvo", "BMW", "Ford", "Mazda"};
+for (String i : cars) {
+  System.out.println(i);
+}
+
+
+while(condition) {
+
+}
+
+the loop stops only when condition fails else it runs infinite.If you want to run the loop for definite time
+then place some condition above while loop.
+
+int i = 4
+while(i<5){
+	driver.findElement(By.id("hrethfg")).click();
+	i++;   // incrementor is must in while loop.
+}
+
+or you can use for loop
+for(i=1;i<5;i++){
+	driver.findElement(By.id("hrethfg")).click();
+}
+==============================================================================================================================
+If you want to use methods of class A in class B , then you have to create object of class A in class B
+If you are creating parameterized object then you will have to create constructor in class A.
+
+Java Inner class - 
+inner class can access outer class data and methods including private.
+
+Nested class - types : non static and static
+non static nested class are called inner class.
+==============================================================================================================================
+wrapper class - java is object oriented language, i.e all the data is presented in the form of object.
+but a raw variable like int,char,float are not object but primitive data type(older data type).
+Solution to this is wrapper class. java allow you to include primitive data in the family of object
+using wrapper classes.There is wrapper class for every primitive data type in java.
+The wrapper class in Java provides the mechanism to convert primitive into object and object into primitive.
+
+In collections, you cannot use primitive data type, only objects are allowed.So we use wrapper class.
+The automatic conversion of primitive into an object is known as autoboxing and vice-versa unboxing.
+
+Numeric - byte,short,int,long,float,double.
+Non numeric - char,boolean.
+
+java.lang.Number class [byte,short,int,long,float,double]  ---implements---  Comparable interface
+java.io Serializable [character,boolean]	---------implements------------  Comparable interface		
+
+The automatic conversion of primitive data type into its corresponding wrapper class is known as autoboxing.
+==============================================================================================================================
+
+String vs StringBuffer ----------->
+String objects are immutable and string buffer is mutable.
+
+Once we create a string object, we cannot make any changes/update to string.
+String s=new String("Durga")
+s.concat("software")
+syso(s) ---------> this code not allowed as s is still pointing to durga.
+
+if you cancat to a string variable but not to the string object. ----
+StringBuilder sb1 = new StringBuilder("123"); 
+String s1 = "123"; 
+// insert code here 
+System.out.println(sb1 + " " + s1); 
+
+sol - sb1.append("abc"); s1 = s1.concat("abc");   
+
+
+StringBuffer s=new StringBuffer("Durga")
+s.append("software")
+syso(s) ---------> this code is allowed as s is changeable.
+=============================================================================================================================
+== vs equals()
+== meant for reference comparison, equals meant for contained comparison.
+String S1=new String("Durga")
+String S2=new String("Durga")
+sop(S1==S2) --- false
+sop(S1.equals(S2)) --- true
+sop(S1.equalsIgnoreCase(S2)) --- true
+
+String s1="Durga"
+String s2="Durga"     // string literals are stored in string constant pool.
+sop(s1==s2) --- true
+sop(s1.equals(s)) --- true
+============================================================================================================================
+
+Access specifiers vs Access modifiers ?
+There are no specifiers in java, all are modifiers by default.
+Public,private, protected, default,final, static, abstract .. etc
+Modifiers allowed for top class are - public, default, final, abstract.
+
+Exception vs Error ?
+Exceptions are caused by our program and are recoverable.
+Error are caused by lack of system resources. ex  memory. These are non recoverable.
+============================================================================================================================
+Java Package 
+  Sub package - lang, util, awt
+  lang - system.class, string.class
+  util - arrayList, map
+  awt - button
+  
+The standard of defining package is : import domain.company.package
+import io.restassured.RestAssured;
+============================================================================================================================
+why a class cant be private and protected ?
+if a class is made private it cannot be accessed outside the class.
+ex: Mobile in a case (private), nokia mobile interacting with nokia mobile only ( protected, parent-child)
+
+=============================================================================================================================
+String - The java.lang.String class implements Serializable, Comparable and CharSequence interfaces.
+
+string is non primitive
+string does not have fixed size
+It is array of characters
+string is a class
+string implements charsequence interface ('a','r','r','a','y')
+string implements Serializable interface
+string implements Comparable interface
+string object is immutable.
+string is final.
+To create string there are 3 classes - String, StringBuffer and StringBuilder.
+
+How to create string ?
+string literal - String s = "Json"
+new keyword - String s = new String("Json")
+
+string constant pool - 
+string literal pool
+
+string methods - 
+To convert into string - valueOf(int value)
+trim() - removes beginning and ending spaces of this string.
+toUpperCase(), toLowerCase(), equalsIgnoreCase()
+indexOf(), substring(), length(), charAt()
+
+s=" java point "
+substring(2,4) - va
+charAt(2) - v
+s.trim()+"center"  -  java pointcenter
+
+.equals compare content
+== compare address
+--------------------------------------------------------------------------------------------------------------------------------
+Super - The way this keyword is used to refer current class object, super keyword is used to refer parent class object.
+
+In child class, the first line is always Super keyword. even if you dont write super() still it will be placed by default.
+
+class A {
+	int a=10;
+}
+class B extends A {
+	int a=20;
+	void show(int a){
+	sop(a);				// 30
+	sop(this.a);		// 20
+	sop(super.a);		// 10
+}
+PSVM {
+	 B b=new B();
+	 b.show(30);
+}
+==============================================================================================================================
+class Demo{
+static int a=50;     // static variable can be accessed by static methods only.
+int b=5;         // non static variable can be accessed by non static methods only.
+
+psvm(){
+
+ Demo demo=new Demo();
+ sop(demo.b);   // To use non static variable inside static method, create object.
+ sop(a)         // static variable inside static method can be called directly.
+}
+============================================================================================================================
+Return statement - only used with methods.
+when we print output of any method using SOP, it cannot be stored in any variable.
+If you want to store the output of a method, we use return statement.
+return value goes to main method.
+
+public class Statement {
+	public static void main() {
+		printMessage();           // first this method is called and the SOP content is printed.
+		int sum=add(5,4)     // add method is called, values 5 and 4 is passed to the method. 
+		System.out.println(sum);
+	}
+public static void printMessage(){
+	System.out.println("This is first method, its value cannot be stored")
+}
+public static int add(int a, int b){
+	return a+b;
+}
+}
+
+That method returns 9 which in integer, and since we used return statement the value 9 can be stored in
+variable sum.
+===============================================================================================================================
+Method - Writing business logic directly inside the class is not allowed.
+ex: class A {
+		int a=10;
+		int b=20;
+		System.out.println(a+b);   // this is not allowed. addition is a operation which should be written inside method only.
+}
+
+Instance variable and methods - Instance method - direct access.
+Instance variable and methods - static method - access through object.
+
+static variable and method - access static area or instance area through class name only.
+
+==============================================================================================================================
+String firstName;   // Instance variable
+
+public void setFirstName(String firstName) {
+	this.firstName=firstName;
+}
+
+whatever value user pass, it goes to the bracket first(local variable) ,from there it goes to RHS in below line. 
+This is assigned to the instance variable using this keyword.
+==============================================================================================================================
+
+int[][] a = new int[2][3];
+
+2 rows, 3 columns
+
+00  01  02
+10  11  12
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

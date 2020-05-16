@@ -1,0 +1,30 @@
+Apache POI API - 
+--------------
+Create object of XSSFWorkbook class
+Access to sheet
+Access all the rows of sheet
+Access specific row
+Access to all columns of row
+Access specific column
+
+FileInputStream fis=new FileInputStream(file path);     step1 - access the file
+XSSFWorkbook wb = new XSSFWorkbook();                   step2 - go inside the file
+int sheetCount=wb.getNumberOfSheets						step3 - check no of sheets present
+wb.getSheetName()
+wb.getSheetAt()
+Iterator<row> rows=sheet.iterator()						step4 - access all the rows
+Row firstrow=rows.next()                                step5 - access the first row using next()
+Iterator<Cell> col=firstrow.nextIterator()  		    step5 - iterate through each column of 
+																first row using nextIterator()
+Cell value=col.next();
+value.getStringCellValue()								STEP6 - read col name
+
+
+
+
+
+
+
+
+
+

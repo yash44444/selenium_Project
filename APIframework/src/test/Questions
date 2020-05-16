@@ -1,0 +1,186 @@
+Client server Architecture - 
+1) Client establishes the connection with server using HTTP protocol.
+2) Once the connection is confirmed, request is sent.
+3) Server responds back with the result.
+
+HTTP Request - information which one computer sends to another for connection
+Contains:
+		Request line - method_uri_HTTP protocol 
+		Headers
+		Optional body
+HTTP Response -
+contains:
+		HTTP protocol
+		status code
+		status message
+
+application/json; charset=utf-8. It means that server is informing the client that the body of the
+response will contain a JSON formatted data. If client needs to make any sense out of the response
+body it should be interpret it as a JSON.
+
+In terms of Restful Web Services, the information requested by a client is referred to as a Resource.
+
+REST contraints - 
+1)Client server Architecture - Application shud be modelled as Client-server.
+UI shud be kept separate from BE. So that both can evolve independently.
+2) Stateless - server do not store client requests.Each request sent by the Client should not be
+	 treated with any information (context) from previous requests made by the same client.
+3) cache - 
+=====================================================================================================
+what is OAuth 2.0 ?
+Industry standard protocol for authorization. When you hit any API you need to authenticate yourself
+to get the response. OAuth provides diff grant types, Authorization code and Client credential 
+being the famous ones. Most of the webservices now a days uses OAuth2 authorization.
+1) Authorization code -In udemy,instead of signup you can login through google or fb. After successful
+verification user is redirected back to udemy home page.
+BMS -> Google -> clientId -> google -> Auth code -> BMS -> using code hit google resources server
+and validate if user exists.
+BMS have to register themselves at google server, permission to host google auth in their applicarion.
+BMS will get a client ID that will uniquely identify them.
+
+Auth code is same as Access token/Security token used in API testing.Here we generate our token by
+passing the customer number instead of username and password.
+key: Authorization
+value: saml_token
+
+The token can be send in Header parameter as Authorization bearer or as query parameter.
+Authorization   Bearer skfdjjfjfdsjgpofw   --- Header
+Jid             00000000-1111-2222-444488882222  --- Query parameter
+
+Authorization using - 
+Header paramters(token) - key/value
+Basic authentication - username/password ( windows authentication)
+OAuth 2.0 - SAML token, JWT token 
+
+TEMPLATE means path parameter 
+
+====================================================================================================
+what kinds of bugs have you encountered ?
+- schema validation error
+- logging errors
+- authorization error
+- security error
+- invalid tags in json response
+- invalid business error, inconsistent error handling
+- functionality error
+- documentation error
+- configuration error
+- performance error
+===================================================================================================
+what documentation did you use ?
+- functional specification
+- swagger
+- Design document
+- TOR
+====================================================================================================
+what are restful services ?
+There are 2 kinds of web services :
+SOAP based
+REST based
+
+what is a Resource in REST ?
+
+What are the challenges in API testing ?
+Parameter selection
+Parameter combination
+call sequencing
+output verification and validation
+proper logging
+
+Give some of API  examples ?
+Google maps, Twitter API, Youtube API
+
+Difference btw API and webservice ?
+what are the different protocols you worked on ?
+HTTP, SOAP, REST
+
+2 Tier and 3 Tier ?
+Client <-> Database - 2 Tier  issues: scalability, security.
+Client <-> App server,IIB,Business layer <-> Database - 3 Tier
+
+raw request sent to middle layer (raw format) -- processed and send to db to fetch needed data(raw->json)
+data sends back the data to middle layer .. and processed again before sending to user.
+========================================================================================================
+Why Apache Log4j ?
+Log4j is fast, reliable and flexible logging framework written in java.
+SYSO do not perform all the functions what log4j do.
+
+Log only when there is error.
+Package A all the logs
+Package B only error logs
+Needs logs with time stamp
+Need log file of last week 
+
+public class Demo {
+private static Logger log= LogManager.getLogger(Demo.class.getName());
+log.debug()
+log.info()
+log.warn()
+log.error()
+log.fatal()
+log.trace()
+}
+-- LogManager is an API, getLogger is a function inside this api.
+-- we need to get class name on which this logger is to be set.
+-- Demo is the class name here.
+-- we create object - log.
+
+Configuration file have 2 sections -
+Appender - where to log and how to log ?
+loggers - what to log ?
+
+    <?xml version="1.0" encoding="UTF-8"?>
+    <Configuration status="WARN">        ---- default logger
+      <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">    ---- where to log ?
+          <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>   --- how to log ?
+        </Console>
+      </Appenders>
+      <Loggers>
+        <Root level="error">               --- what to log at project level ?
+          <AppenderRef ref="Console"/>     
+        </Root>
+      </Loggers>
+    </Configuration>
+==========================================================================================================
+Challenges ?
+Timing issue - used Explicit wait, maintaining xpath/Locators, DOM structure failure.
+proper structure of library 
+integration with 3rd party tools.
+
+what are different frameworks ?
+	Page object Model -- web automation
+    Data-Driven Framework.
+    Keyword Driven Framework.
+    Modular Driven Framework.
+    Hybrid Framework which will be the combination of Data-driven, TestNG, POM.
+    Behavior Driven Development - API automation
+    Test-Driven Development 
+    
+=========================================================================================================
+
+Mock Service - when actual webservice is not available or is in development phase we mock the actual
+response.
+TC -> Generatr SOAP mock service -> select operation -> this generates a mock response structure referring
+to wsdl -> run locally the mock service rather than pointing to actual url (http://localhost:8088/GetBank)
+
+
+             
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

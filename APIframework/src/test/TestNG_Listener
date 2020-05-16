@@ -1,0 +1,109 @@
+Property content - 
+Contains Assertion
+Not contains Assertion
+json path match
+XPath Assertion
+xquery match assertion
+
+Compliance assertion - 
+Invalid HTTP status code assertion
+valid HTTP status code assertion
+
+SLA assertion 
+===================================================================================================
+what kinds of bugs have you encountered ?
+- schema validation error
+- logging errors
+- authorization error
+- security error
+- invalid tags in json response
+- invalid business error, inconsistent error handling
+- functionality error
+- documentation error
+- configuration error
+- performance error
+===================================================================================================
+what documentation did you use ?
+- functional specification
+- swagger
+- Design document
+- TOR
+====================================================================================================
+TestNG - is a testing framework which can be used to control test execution.
+Annotations:
+-----------
+BeforeSuite		1		set up system property		-- at testNG.xml level
+BeforeTest		2		launch browser				-- at testNG.xml level		 
+BeforeClass		3		login to app				-- at class level
+BeforeMethod	4		enter url					-- at class level
+@Test			5		verify google title 
+AfterMethod		6		logout from app
+AfterClass		7		close browser	
+AfterTest		8		delete cookies
+AfterSuite		9		Generate report	
+
+@Parameters("URL")
+@Test(groups={"smoke"})
+@Test(dependsOnMethods={"test.day2"})
+@Test(enabled=false)
+@Test(timeOut=4000)
+
+Convert your test case to testng.xml to control your tc execution.
+
+------- testng.xml ---------
+<suite name="Loan Department">
+	<parameters name="URL" value="https:www.google.com"/>
+	<test name="Regression">
+		<groups>
+			<run>
+				<include name="smoke"/>
+			</run>
+		</groups>
+	<classes>
+		<class name="test.day1"/>
+		<class name="test.day2"/>
+			<method>
+				<exclude name="sanity.*"/>    ---- if you want to exclude any test case name starting with sanity
+			<method>
+	</classes>
+	</test>
+</suite>
+
+TestNG assertions - 
+assert.assertFalse - when you need false as output ( checkbox is not pre selected )
+assert.assertTrue - when you need true as output ( checkbox is selected )
+assert.assertEquals("Actual","Expected")
+============================================================================================================
+TestNG Listeners - Listener is an interface which implement methods of testng listener class.
+Listener listen to the tcs and act based on the output. We need to give information about listener in
+testNG xml file where they are located ( after suite and before test ).
+
+<suite name="Loan Department">
+	<listeners>
+		<listener class-name=test.Listeners"/>
+	</listeners>
+	
+- ITestListener
+==========================================================================================================
+
+How to run tc in parallel ?
+Running 100 or more tcs in a single browser may lead to performance issues.
+
+<suite name="Loan Department" parallel="tests" thread-count="5">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

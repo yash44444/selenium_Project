@@ -1,0 +1,30 @@
+Client ask test to execute on diff versions of browsers. But wud u buy all these browsers ?
+some vendors have all these browsers.
+OS - win7, 10.
+They will provide server, vm facility .. cloud.
+
+Sauce labs vendor - 2 platforms
+
+selenium
+Appium
+Manual test
+
+DesiredCapabilities class - 
+
+
+public class SauceLabsTest {
+
+public static final String USERNAME = "rahul2";
+public static final String ACCESS_KEY = "xxxxx";
+public static final String URL = "http://" + USERNAME + ":" + ACCESS_KEY + "@ondemand.saucelabs.com:80/wd/hub";
+
+
+public static void main(String[] args) throws MalformedURLException {
+DesiredCapabilities caps = DesiredCapabilities.chrome();
+caps.setCapability("platform", "Windows 7");
+caps.setCapability("version", "51.0");
+WebDriver driver=new RemoteWebDriver(new URL(URL), caps);
+driver.get("http://google.com");
+System.out.println(driver.getTitle());
+
+}

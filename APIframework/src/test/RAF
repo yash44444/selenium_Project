@@ -1,0 +1,223 @@
+base URI/resource/parameter
+
+step1 - provide base url   RestAssured.baseURI
+step2 - provide headers/parameters/body under given(). -   param().
+step3 - hit the resource under when().
+step4 - assert response under then() - assertThat().statusCode().and().contentType()
+
+For GET request we can use params since we can send any data in the uri.
+For POST request we have to be specific what parameter are we sending, path para or query param.
+
+========================================================================================================
+URI – Uniform Resource Identifier 
+	1)URN – Uniform Resource Name
+	2)URL – Uniform Resource Locator 
+
+Resource is a physical or virtual component, which supports/extends/represents/constructs a system. 
+Consider a real time example of Motor Bike. Wheels, breaks, headlight, fuel tank etc all are resources 
+of a Motor bike. Sameway for Google we have maps,news, photos.
+
+URI is used to identify a resource on internet either by location or name.
+identifying a resource by name is known as URN and by location is known as URL.
+Since 2 or more resource may have same name URN is not used, so we use URLs.URL may have path 
+parameter or query parameter. 
+
+--- scheme://Domain:port/resource/parameter#fragment ---
+=========================================================================================================
+REST principles ?
+Uniform interface
+stateless
+cacheless
+client server
+layered system
+
+what is idempotent and which HTTP methods are idempotent in nature ?
+A method which can be called n no of times without changing the output - GET,PUT,DELETE
+non idempotent - POST
+
+How to upload file using restful services ?
+
+Difference btw path parameter and query parameter ?
+
+Difference btw @Produces and @Consumes ?
+
+What annotations did you use in framework ?
+@GET,@Produces,@Consumes,@QueryParam,@Path,@POST,@JsonPath,@XmlPath,,@PUT,@DELETE,@Param
+
+which framework did you use ?
+RestAssured, Cucumber.
+
+How to secure Restful services ?
+Basic Auth, OAuth2.0
+=========================================================================================================
+what is Request Response spec builders ?
+If there is some part of code which is common in all the requests, like baseURI, query param, header
+we can generalize all this code and place it at a central place by using Request Spec Builder class.
+Return type of RequestSpecBuilder is RequestSpecification.
+
+RequestSpecification req = new RequestSpecBuilder().setBaseUri(http://www.google.com)
+						   .addQueryParam("key","kolkata")
+						   .setContentType(ContentType.JSON).build();
+	
+ResponseSpecification res = new ResponseSpecBuilder().expectStatusCode(200)
+							.expectContentType(ContentType.JSON).build();            // common code
+																   
+RequestSpecification reqs= given().spec(req).body(p);   // pass common reqst in given
+			
+Response resp = reqs.when().post("/maps/api/add/json")  
+				    .then().spec(respec).extract().response();   // pass common response in when
+
+String response_String = resp.asString();	
+
+=========================================================================================================
+{
+"message" : "Hello"
+}
+
+JSON is in the form of key value pair.
+For every key we create a corresponding variable in java. And for this variable we have to implement
+two methods - getters and setters.
+
+getVariablename()
+setVariablename()
+
+we set the value of the variable say "Hello" using setter method.
+
+class should be public
+variables should be private
+methods should be public
+
+step 2 - 
+create java object for the above class.
+vaiable v = new variable()
+v.setvariable("Hello")
+
+we send the java object. Rest assured will look at the java object, and it will see its associated POJO class
+and it will map your java object to the pojo class. It will create a json at run time and send that json to
+the end point.This whole process is called Serialization.
+For serialization Setter method plays a key role since we are setting values of the variable.
+
+Deserialization - Getter plays the role in retrieving the value from the response we get from the request.
+Alt + shift + s -- generate getter and setter
+
+return type of mini jason in not string, but class.
+private Courses courses;
+==========================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Dependencies ----->
+JSON Schema Validator.
+Add Maven dependency of Jackson JSON Java parser ( Needed for mapping Java objects to and from JSON )
+Add Maven dependency of JAXB XML Java parser ( Needed for 
+mapping Java objects to and from XML ) 
+
+
+
+given().  queryParam()
+
+TC - Create a place and delete it when created.
+Response res=given()
+when
+then
+extract().response();   ---> response will b in raw format
+raw -> string     res.asString();
+now to fetch place id from the post response(json) we need to traverse through json body, for that
+we need to convert string res to json now, using JsonPath class
+JsonPath js=new JsonPath(string);
+js.get(place id path);
+
+Centralizing data - using .properties file
+HOST= host url
+@BeforeTest
+properties pro=new properties();
+pro.get("HOST");
+but to read the host from the prop file, we have to create fis and provide path of prop file
+
+we create new resource class n place all resources there.
+we create new body class n place all body there.
+we create ReusableMethods class having rawtoXml and rawtoJson methods.
+
+Collecting objects --------------->
+Say you have an array in json response and you want to print name from all the 20 array objects - 
+int count=js.get("result.size()")
+for(int i=0;i<count;i++){
+	syso(js.get("result["+i+"].name"));
+}	
+
+Logging ------------------>
+log().all()
+log().ifValidationFails() ... only in case of error
+log().body()
+
+Dynamic payload and Parameterization ------------------->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+

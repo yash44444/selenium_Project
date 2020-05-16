@@ -1,0 +1,148 @@
+Types of ws :
+SOAP - xml
+REST - xml or json
+
+URI - host/resource/parameter
+========================================================================================================
+GET - read data from server, You can hit the request multiple times but you get same response.
+200 OK, 400 BAD REQUEST, 404 NOT FOUND.
+
+DELETE - deleting an entry. You can hit the reqeust only once.
+
+POST - creating new record, 201 OK. Can hit request only once for 1 data. Every time you change something
+in the data, each time the data will be added newly to the server but will not override the previous data.
+
+PUT - create if not exist, update if exist already. 200 OK
+ex: you can update the name for an id=2. Also in PUT we can update multiple fields at the same time.
+PUT overrides the previous data but does not create new record.
+
+PATCH - can update only single field. You pass only the field which has a change in the body for the 
+respective id and not entire body.
+
+GET,PUT,DELETE are idempotent in nature i.e they will not change.
+
+
+200-299  success response
+300-399  redirects
+400-499  client errors
+500-599  server errors
+
+200  OK
+201 Created , POST PUT
+202 Accepted
+
+400 Bad request
+401 Unauthorized
+403 forbidden
+404 not found
+414 URI too long
+429 too many requests
+
+500 internal server error
+502 bad gateway
+503 service unavailable
+504 gateway timeout
+============================================================================================================
+JWT - json web token. Commonly used for user authorization.
+is an internet standard for creating json based access token.hleps in securely transferring information
+btw two bodies.Digitally signed -information is verified and trusted.The token itself contain the 
+information about the user, duration for which it remains valid.
+
+aaaaaaaaaaa.bbbbbbbbbbbbb.cccccccccccc
+Header.payload.signature
+
+1) login with user psw in browser
+2) server returns JWT to browser
+3) bowser thn sends the JWT on authorization header.
+4) server check JWT signature and get usr info
+5) send response to the client.
+===========================================================================================================
+API gateway - is a component which acts as an entry point for your API hosted on web application.
+
+Mobile/Desktop --> request --> | API GATEWAY | -->   GET /home
+								 					 GET /home/products 
+								 					 ----------------------microservice1
+								 					 
+													 POST /mycart/add (Authentication), 
+													 DELETE /product/add/delete (Authorization)
+													 ----------------------microservice2
+													 
+- User can retrieve any product details
+- User want to add product to his cart, but is he Authenticated ( logged in ? )
+- User want to delete product from the website, is he Authorized to do so ?
+- we want our application to be secure, so we make https connection. We add SSL certificate
+- All the above components are not business logic, so we separate them using API gateway.
+- GATEWAY ( Security, Authentication, Authorization, version Routing )
+- We may have multiple http calls/ajax calls for multiple request from the client. So we implement Adapter
+  which consolidates the response of all the reqeust and send response back to user.
+- We implement router as well to rout the request to the appropriate version.
+- we implement Load balancer as well to route the incoming traffic.
+- we can expose our gatways to external parties to make business. ex: payment gatway.
+  based on the no of hits made to our API gatway we can charge them.
+========================================================================================================
+SSL-TSL : For internet browsing we use http which is an application protocol which helps 
+browsers and servers to communicate with each other, transfer file, text, photos,videos.
+HTTP offers set of rules and standards which govern how any information can be transmitted
+on the World Wide Web. but http have a limitation - data is transferred w/o encryption.
+  
+  browser  --------psw-----> server
+  
+ HTTP+SSL - HTTPS ( sent in cipher text, encrypted form )
+ 
+ SSL - Secure socket layer
+ It creates a secure session btw client and server by encrypting with 25/1024/2048 bit 
+ key. ex of encryption: RSA 
+ SSL certificate confirms authenticity of website, provide secured connection.
+ 
+ when user try to connect to any website, the server sends a SSL certificate to the browser
+ browser and browser validates the certificate. Once validated browser sends response to 
+ server.
+ 
+ HTTP PORT 8080 TCP/IP
+ HTTPS PORT 443 TLS/SSL
+
+Limitations of HTTPS
+1)HTTPS protocol can't stop stealing confidential information from the pages cached on the browser.
+2)SSL data can be encrypted only during transmission on the network. So it can't clear the
+text in the browser memory.
+=========================================================================================================
+WSDL - Webservice description language.
+Tells us - 
+what are the available operations ?
+what is the input/output for each operation ?
+Address of the webservice
+
+wsdl contain :
+type - data type ... integer type
+messages - input/output message
+port type - operations
+binding - 
+services - end point
+=========================================================================================================
+Assertion :
+XPATH match : //ns1:getBankDetails/ns1:bic/ns1:tic
+compliance/status/standard : SOAP RESPONSE, SCHEMA COMPLIANCE, NOT SOAP FAULT, XQUERY MATCH
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

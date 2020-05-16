@@ -1,0 +1,957 @@
+How do you set up java and selenium ?
+install jdk
+configure java path in system variable
+install eclipse
+create new project
+download selenium jars
+configure selenium jars in project build path
+choose browser to run
+create driver object of selected browser
+set system property
+run your program.
+-------------------------------------------------------------------------------------------------------------
+Selenium is an open source (free) automated testing suite to test web applications. 
+Selenium is a set of different software tools. Each tool has a different approach in supporting web based
+automation testing.
+
+It has four components namely,
+
+    Selenium IDE (Selenium Integrated Development Environment)
+    Selenium RC (Selenium Remote Control)
+    Selenium WebDriver
+    Selenium Grid
+=============================================================================================================
+Architecture - 
+java code IDE -> 
+	JSON format via http protocol -> 
+				browser driver(server) -> 
+					browser, perform action ->
+						response to browser driver(server) over http -> Client, IDE.
+
+- when you trigger the test, the selenium code is converted into json format.
+- The generated json is sent to the server i.e browser driver.
+- every browser have its own browser driver ( firefox driver,chrome driver, ie driver ).
+- This driver communicates with its browser and the actions written in the code is executed.
+- The action response is sent back to driver. This driver will wrap the response in json format again
+  and sent back to client.
+- So we download browser drivers separately so that our code can communicate with the browser.
+==========================================================================================================
+In java, if we have a class and we want to create object of this class we do it by : A a = new A();
+We want to create object of chromedriver class, then it will be: ChromeDriver driver=new ChromeDriver();
+but since we have to implement all the methods of webdriver interface, the return type changes from
+chromedriver to webdriver giving the knowledge to driver.
+WebDriver driver=new ChromeDriver();
+All the 3rd party browsers have restricted selenium to invoke their browser directly due to security issues.
+so each browser have given a .exe file to selenium which they have to invoke first from their test.
+selenium have set a property in the form of key-value pair.
+
+
+Why WebDriver driver = new FirefoxDriver() and Why not WebDriver driver = new WebDriver() ?
+We cannot write our code like this becos we cannot create Object of an Interface.WebDriver is an interface.
+
+Why we wont prefer FirefoxDriver driver = new FirefoxDriver() ?
+The FirefoxDriver instance which gets created based on above statement will be only able to invoke and 
+act on the methods implemented by FirefoxDriver and supported by Firefox Browser only. We know that 
+FirefoxDriver is a class and it implements all the methods of WebDriver interface. Using this statement, 
+we can run our scripts only on Firefox Browser.We don’t just run our scripts only on single browser. 
+We use multiple browsers for Cross Browser Compatibility. 
+
+What is RemoteWebDriver and where we use it ?
+If we want to run our automation scripts on the remote machine’s browser then we use RemoteWebDriver.
+If you want to work with Grid then you have to stick with RemoteWebDriver. If we use RemoteWebDriver
+then we have to mention where the Selenium Server is located and which web browser you want to use.
+We can use RemoteWebDriver the same way we would use WebDriver locally. The primary difference is that
+remote webdriver needs to be configured so that it can run your tests on a remote machine.
+ WebDriver driver = new RemoteWebDriver(new URL Desired capabilities.firefox());
+ 
+Search Context (I) ---EXTENDS---> WebDriver (I) ---IMPLEMENTS---> RemoteWebDriver class
+RemoteWebDriver implements JavaScriptExecutor,TakeScreenshot, and extends FirefoxDriver,ChromeDriver.
+
+SearchContext is the super most interface in selenium, which is extended by another interface called WebDriver.
+All the abstract methods of SearchContext and WebDriver interfaces are implemented in RemoteWebDriver class.
+All the browser related classes such as FirefoxDriver, ChromeDriver etc., extends the RemoteWebdriver class.
+=============================================================================================================
+download browser driver first, 
+1) create object of webdriver interface.
+2) each of the browser driver have a property(key,value) set which needs to be invoked using system.set
+   property.
+3) now using the driver object, you perform all the action. 
+4) If right click is disabled for any website, we print the pagesource using getPageSource() method.
+5) driver.navigate().back(), driver.navigate().forward(),driver.navigate().refresh()
+6) driver.close()  ... closes the window where you are in focus, say 3rd window out of 5
+7) driver.quit() ... closes all the browsers.
+
+How do you verify you landed on the right webpage ?
+driver.getCurrentUrl()
+-----------------------------------------------------------------------------------------------------------
+LOCATORS - XPATH,CSS preferred.
+
+driver.findElement(By.id())
+driver.findElement(By.name())
+driver.findElement(By.className())
+driver.findElement(By.linktext())
+
+driver.findElement(By.xpath("//*[@id='Login']") 
+driver.findElements(By.xpath("//*[@id='Login']")  ---> return type is List<webElement>
+driver.findElement(By.xpath(//a[text()='Feature')
+driver.findElement(By.xpath(//a[text()='Feature')  ... no @ with text
+driver.findElement(By.xpath(//button[contains(text(),'SignUp')))  ... no = with contains
+driver.findElement(By.xpath(//a[@type='Feature' and @class='btn'))
+
+driver.findElement(By.xpath(//a[starts-with(@id,'link-forgot')]))
+driver.findElement(By.xpath(//input[@id=’’])/following::input[1]
+driver.findElement(By.xpath(//input[@id=’’])/preceding::input[1]
+
+<a  anchor a means it is a link 
+class name having spaces will not be accepted by selenium. ex: class = "inputtext login_form_input_box".
+Compound class names are not permitted in selenium.
+
+CSS always traverse forward while xpath can traverse both.
+Xpath engine is different for different browsers while CSS remains same.
+Moreover, IE doesn’t has its native xpath engine due which CSS works works well on IE.
+
+xpath - 
+//*[@id='Login']  
+// - start from anywhere
+* skip tagname
+out of those all elements find id
+
+cssSelector - For css we dont need relative or absolute path, we write only tag and value.
+a[href='Project']
+id  #
+class .
+contains *
+starts with ^
+ends with  $
+
+Parent -> child   // -> /  in xpath     >a in css
+
+//li[@id='menu']/a
+
+
+firepath plugin of firefox not available v56 onwards.
+$x("xpath") .. search in console
+
+<input class="inputtext"
+input is the tag. class is the attribute. value is inputtext. 
+in html, all the keys are called attributes.
+//tagName[@attribute='value']
+//tagName[contains(@attribute='value')]
+
+text based - //*[text()='Selenium']
+
+ElementNotVisibleException - when webdriver cudn find any element
+================================================================================================================================
+Parent to child traversing - check the nearest parent .. arrow pointing downwards.
+chropath plugin
+
+/following-sibling::li[1]   if parent n child are dynamic .. traversing forward
+/parent::li[1]  traversing backward
+*** The major difference btw xpath and css is that with xpath you can traverse backward but not with css.
+================================================================================================================================
+Dropdown - Select class
+selectByValue
+selectByIndex
+selectByVisibleText
+
+getFirstSelectedOption()  - method to verify if the selected value is per tc or not or pre-selected
+value is dropdown is first element or not.
+
+How to fetch all values from dropdown ?
+Using getOptions() method.
+List<WebElement> month_list=month_dd.getOptions();
+for(WebElement ele:month_list){
+	String month_name=ele.getText();
+	syso("Months are ="+month_name);
+}
+
+Element not visible exception - ex: dynamic dropdown
+first dropdown auto closed so element is not visible when selenium finds two instances of Mumbai
+
+If indexed xpath is not allowed, we use Parent_child xpath. 
+=============================================================================================================================
+Alert handling methods - 
+1) dismiss()
+2) accept()
+3) getText()
+4) sendKeys(String stringToSend)
+=============================================================================================================================
+Browser navigation methods - 
+
+driver.navigate().to();
+driver.navigate().forward();
+driver.navigate().back();  
+driver.navigate().refresh();  
+============================================================================================================================
+
+
+
+Synchronization - 
+Implicit wait
+Explicit wait
+Fluent wait
+Thread.sleep
+
+driver.manage().timeouts().implicitlyWait(5,TimeUnit.SECONDS);
+we declare this timeout globally to tell selenium to wait atelast 5 seconds if you dont find any object.
+This wait is applied to each and every line of your test.
+If it takes more than 5 seconds the tc fails, if else than 5 it moves ot next step.
+
+WebDriverWait wait=new WebDriverWait(driver,5)
+wait.until(ExpectedConditions.visibilityofElementLocated(By.xpath()));
+-- target only specific element.
+=============================================================================================================================
+
+Action Class - handling mouse operation.
+
+Action a=new Action(driver);
+a.moveToElement(driver.findElement(By.id(" "))).build().perform();
+-- build the entire action.
+-- perform the action.
+
+right click - a.moveToElement(move).contextClick().build().perform();
+=============================================================================================================================
+Handling multiple window - 
+
+set<String> ids=driver.getWindowHandles();
+Iterator<String> it=ids.iterator();
+String parentId=it.next();
+String childId=it.next();
+driver.switchTo().window(childId);
+==============================================================================================================================
+Handling frames - 
+
+Basically, we can switch over the elements in frames using 3 ways.
+    By Index
+    By Name or Id
+    By Web Element
+    
+driver.switchTo().frame(0)  
+driver.switchTo().frame(id)
+driver.switchTo().frame(name)
+driver.switchTo().frame(WebElement)
+driver.switchTo().parentFrame();
+driver.switchTo().defaultContent();
+==============================================================================================================================
+WebElement src=driver.findElement();
+WebElement tgt=driver.findElement();
+Action act =new Action(driver);
+act.dragAndDrop(src, tgt).build().perform();
+
+How many frames are there in the page ?
+By.tagName("iframe").size();
+
+How many links are there in the page ?
+By.tagName("a").size();
+================================================================================================================================
+What is Page Factory ?
+
+WebDriver driver;
+public RediffLogin(Webdriver driver) {
+this.driver=driver;
+PageFactory.initElements(driver, this)
+}
+
+@FindBy(xpath="  ")       ..... find the xpath
+WebElement username;      ..... for which element in page ?
+
+create a method passing all the weblements as parameters.
+
+public WebElement loginApplication(String emailId, String psw) {
+	username.sendKeys(emailId);
+	password.sendkeys(psw);
+	submit.click();
+}
+
+Do not write assertions in page actions.
+=======================================================================================================
+what is POM ?
+
+Home page - java class(Redifflogin) - all the objects of home page. 
+Login page - java class - all the objects of login page.
+
+Test case - 
+public void login() {
+	system.setProperty();
+	Webdriver driver=new Chromedriver();
+	driver.get(url)
+	Redifflogin rd=new Redifflogin(driver);
+	
+	-- login page opens, here we have to pass username, psw from (Rediffhomepage object -->Test case)
+	-- we should not hardcode objects in our tc, it should come from the repository.
+	-- In order to access objects from rediff class to your tc, we have to create object of that class
+	   in our test case passing driver as parameter which will run all the tc.
+	-- For this we need to equally create a single parameter constructor in the homepage passing
+	   Webdriver driver as parameter since homepage does not know which browser driver is to be used.
+	   
+}
+================================================================================================================================
+How to take screenshot ?
+step1 - first convert webdriver object into TakeScreenshot object using TypeCasting method.
+step2 - Then using FileUtils method we copy the screenshot to our local machine.
+
+		WebDriver driver;
+		File src= ((TakeScreenshot)driver).getScreenshotAs(OutputType.FILE);
+		FileUtils.copyFile(src,new File("C:\\Users\\rahul\\screenshot.png"));
+
+How to handle SSL certificate ?
+We need to add capabilities to our browser.Desired capability is a class which helps you to customize
+your browser.And then pass the object of this class to ChromeOptions.
+
+DesiredCapabilities ch=DesiredCapabilities.chrome();
+ch.setCapability(CapabilityType.ACCEPT_INSECURE_CERTS, true);
+ch.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+ch.acceptInsecureCerts();
+ChromeOptions c=new ChromeOptions();
+c.merge(ch);	
+================================================================================================================================
+How to maximize window and delete cookies before you start the test ?
+driver.manage().window().maximize();
+driver.manage().deleteAllCookies();
+driver.manage().deleteCookieNamed("sessionKey");
+.. if you want to delete session cookie and return to home page .. after deleting named cookie click 
+on any link, wbsite will by default return to home page.
+=======================================================================================================
+How to take screenshot ?
+first convert webdriver object into screenshot object using typecasting method.
+then using FileUtils method we copy the screenshot to our local machine.
+
+File src=	 ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+FileUtils.copyFile(src,new File("C:\\Users\\rahul\\screenshot.png"));
+==========================================================================================================
+How inheritance is achieved in framework ?
+We create a Base Class in the Framework to initialize WebDriver interface, WebDriver waits, Property files,
+Excels, etc., in the Base Class.We extend the Base Class in other classes such as Tests and Utility Class. 
+Extending one class into other class is known as Inheritance.
+
+where did you use Interface in framework ?
+1)Listeners
+2)WebDriver itself is an Interface. So based on the above statement WebDriver driver = new FirefoxDriver(); 
+we are initializing Firefox browser using Selenium WebDriver. It means we are creating a reference variable
+(driver) of the interface (WebDriver) and creating an Object. Here WebDriver is an Interface as mentioned 
+earlier and FirefoxDriver is a class.
+
+where did you use Abstraction in framework ?
+In Page Object Model design pattern, we write locators (such as id, name, xpath etc.,) in a Page Class.
+We utilize these locators in tests but we can’t see these locators in the tests. Literally we hide the 
+locators from the tests.Abstraction is the methodology of hiding the implementation of internal details
+and showing the functionality to the users.
+
+where did you use Polymorphism in framework ?
+METHOD OVERLOADING
+We use implicit wait in Selenium. Implicit wait is an example of overloading. In Implicit wait we use 
+different time stamps such as SECONDS, MINUTES, HOURS etc.,
+A class having multiple methods with same name but different parameters is called Method Overloading.
+
+where did you use ENCAPSULATION in framework ?
+All the classes in a framework are an example of Encapsulation. In POM classes, we declare the data members
+using @FindBy and initialization of data members will be done using Constructor to utilize those in methods.
+Encapsulation is a mechanism of binding code and data together in a single unit.
+
+Can driver be static ?
+It can be and useful only if the tcs are to be run in sequence. But to run tcs in parallel
+driver should not be kept static. when driver is kept as static it means in the entire framework
+there will be only one copy. for each tc the driver is initialized first. 
+
+DOM - 
+                            Document
+                               |
+                        Root Element <html>
+                               |
+            ---------------------------------------------
+            |            								|
+            Head										Body
+       <title>- Nationwide								href  - Attribute
+       													<a>   - My Link
+       													<h1>  - My header
+       													<div>
+                        
+List some selenium exception --------->
+ElementnotVisibleException 
+ElementnotClickableException 
+InvalidArgumentException
+InvalidElementStateException
+InvalidCoordinatesException
+NoAlertPresentException
+NoAttributeException
+NoSuchElementException
+StaleElementReferenceException
+TimeOutException
+UnexpectedAlertException
+WebDriverException
+========================================================================================================             
+write program to switch between multiple windows ------- ?
+WebDriver driver=new ChromeDriver();
+driver.manage().window().maximize();
+driver.get("http://www.flipkart.com);
+driver.manage().timeouts().implicitlyWait(30,TimeUnit.SECONDS);
+String parent=driver.getWindowHandle();    // get parent window
+syso("Title of parent window before switching ="+parent);
+driver.findElement(By.xpath("//a[@id='abc']")).click();
+	Set<String> childs=driver.getWindowHandles();    // return type is set of strings
+	While(childs.hasNext()) {
+		String child=childs.next();
+		
+		if(!parent.equalsIgnoreCase(child)){
+			driver.switchTo().window(child);
+			driver.findElement(By.xpath("//a[@id='abc']")).sendKeys("Agra");    // performin action in child window
+			Thread.sleep(2000);
+			syso("Title of parent window after switching ="+driver.getTitle());
+			driver.close();
+		}
+	}
+			driver.switchTo().window(parent);
+			syso(driver.getTitle());
+}
+
+// if you have mulitple windows use Set<String>
+// if you want multiple tabs use Arraylist<String>
+
+driver.get("http://www.flipkart.com);
+String parent=driver.getWindowHandle();    // get parent window
+
+	Set<String> childs=driver.getWindowHandles(); 
+	ArrayList<String> tabs=new ArrayList<>(childs);
+	driver.switchTo().window(tabs.get(2));
+	driver.close();
+========================================================================================================
+How do you handle hidden web element ?
+by finding the cordinates if there are multiple weblement.
+driver.get("google.com");
+List<WebElements> ele=driver.findElements("By.id("male"));
+int count=ele.size();
+for(int i=0;i<count;i++) {
+	int x=ele.get(i).getLocation().getX();
+		if(x!=0) {
+			radio.get(i).click();
+		}	
+}
+========================================================================================================
+How do you handle ElementnotClickableException ?
+
+    It mostly happens in Chrome so if you are mostly working with Firefox or IE then you will not be getting this exception.
+    Chrome does not calculate the exact location of element
+    Chrome always click in the middle of Element.
+    Sometimes you will get this exception due to Sync issue also.
+
+Using Actions class.
+Actions act=new Actions(driver);
+act.moveToElement(driver.findElement(By.id("persistent"))).click().build().perform();
+========================================================================================================
+HoW do you find if all the links in a webpage are up and running ?
+
+		driver.get("http://www.google.co.in/");
+		List<WebElement> links=driver.findElements(By.tagName("a"));		
+		System.out.println("Total links are "+links.size());		
+		for(int i=0;i<links.size();i++)
+		{
+			WebElement ele= links.get(i);			
+			String url=ele.getAttribute("href");			
+			verifyLinkActive(url);			
+		}		
+	}
+	
+	public static void verifyLinkActive(String linkUrl)
+	{
+        try 
+        {
+           URL url = new URL(linkUrl);          
+           HttpURLConnection httpURLConnect=(HttpURLConnection)url.openConnection();         
+           httpURLConnect.setConnectTimeout(3000);           
+           httpURLConnect.connect();           
+           if(httpURLConnect.getResponseCode()==200)
+           {
+               System.out.println(linkUrl+" - "+httpURLConnect.getResponseMessage());
+            }
+          if(httpURLConnect.getResponseCode()==HttpURLConnection.HTTP_NOT_FOUND)  
+           {
+               System.out.println(linkUrl+" - "+httpURLConnect.getResponseMessage() + " - "+ HttpURLConnection.HTTP_NOT_FOUND);
+            }
+        } catch (Exception e) {
+=========================================================================================================          
+How do you run failed tcs ?
+Write tcs -> convert to testng.xml  -> run as testng suite 
+go to test output folder -> new folder is created for the suite ran -> 
+reports generated -> html and xml + testng-failed.xml file is created.
+
+testng-failed.xml tells which tc failed, which method failed.
+run testng-failed.xml as testng.suite
+
+or by using TestRunner class of testNG --
+TestNG runner=newTestNG();
+List<String> list=new ArrayList<String>();
+list.add("tnstngfail.xml path");
+runner.setTestSuites(list);
+runner.run();
+=========================================================================================================
+POM - is just a desing pattern not a framework.
+As the name says each page of appication will be treated as pure java class.
+we will be creating separate pages and will store  all the locator and methods to use them.
+Script becomes more readable, reusable script, easy to maintain.
+
+Approach - w/o pageFactory, with PageFactory.
+Loginpage - having locators, methods, driver constructor
+Testcase  - webdriver, create object of loginpage and invoke methods.
+
+PageFactory - In order to support pageobject patter, webdrivers support library contain factory class.
+It contain separate method to initialize webelement of page - InitElement.
+Important feature of PF is cache feature that will store all frequently used webelement in cache.
+
+public class Loginpage
+{
+	WebDriver driver;
+    public Loginpage(WebDriver driver)
+    {
+    	this.driver=driver;
+    }
+@FindBy(@id="user_login") WebElement username;
+@FindBy(@id="user_psw") WebElement password;
+@FindBy(@id="user_login") WebElement submit;
+
+public void login_flipkart(String uid, String pass){
+	username.sendKeys(uid);
+	password.sendKeys(pass);
+	submit.click()
+}
+
+=========================================================================================================
+What does POM.xml contains? 
+The pom.xml file contains information of project and configuration information for the maven to build
+the project.Maven reads the pom.xml file, then executes the goal.
+
+  project 
+  modelVersion
+  groupId
+  artifactId
+  version
+  name
+  url
+  dependencies
+===============================================================================================================================
+Webtable - 
+table have a body
+body have n no of rows
+row may have 1 or more data
+
+<table>  
+<tbody> 
+		<tr>
+			<td> Sam </td>
+		</tr> 
+				
+		<tr>
+			<td> Roger </td>
+			<td> Novac </td>
+		</tr>  
+</tbody> 
+</table>
+
+
+List<Welements> dates=driver.findElements(By.xpath(  .. /table[1]//td"]);
+int total_dates=dates.size();
+for(int i=0;i<total_dates;i++) {
+	String date=dates.get(i).getText();
+if(date.equals("31"){
+	dates.get(i).click();
+	break;
+}
+}
+================================================================================================================================
+How to use debug in selenium ?
+In debug you can watch source code and variable during execution. 
+F6 - execute current statement. step over
+F5 - step into the method and execute the statement.
+
+Debug as TestNG test
+================================================================================================================================
+base class - 
+
+TC1 - 
+Method1 - open browser and open app
+Method2 - execute the test
+Method3 - close the browser
+
+TC2 - 
+Method1 - open browser and open app
+Method2 - execute the test
+Method3 - close the browser
+
+.. If we see Method1 and Method3 are duplicate code being used again and again in multiple tests. So we create a base class
+where we place common code (Method1, Method3). 
+
+@BeforeClass
+Baseclass {
+ 	Method1
+ 	Method3
+}
+
+TC1 extends BaseClass {
+	Method2
+}
+================================================================================================================================
+what is ObjectRepository/Property/Configuration file ?
+
+Its a plain text file containing key value pair.
+config.property
+
+configuration.demo --> load config.peroperty file having chromeDriver --> TC
+
+File src=new File(path of config.property);
+fileInputStream fis=new FileInputStream(src);
+Properties pro=new Properties();
+pro.load(fis);
+System.setProperty("WebDriver.chrome.driver", pro.getProperty(chromePath));
+
+=============================================================================================================================
+
+@BeforeSuite: The annotated method will be run before all tests in this suite have run.
+@BeforeTest: The annotated method will be run before any test method belonging to the classes inside the tag is run.
+@BeforeClass: The annotated method will be run before the first test case in the current class is invoked.
+
+@BeforeMethod: The annotated method will be run before each test case.
+@Test: Test case1. Each method is a test case where business logic is written.
+@AfterMethod: The annotated method will be run after each test case.
+
+@BeforeMethod: The annotated method will be run before each test case.
+@Test: Test case2. Each method is a test case where business logic is written.
+@AfterMethod: The annotated method will be run after each test case.
+
+@AfterClass: The annotated method will be run after all the test methods in the current class have been run.
+@AfterTest: The annotated method will be run after all the test methods belonging to the classes inside the tag have run.
+@AfterSuite: The annotated method will be run after all tests in this suite have run.
+
+@BeforeGroups: The list of groups that this configuration method will run before. This method is guaranteed to run shortly before the first test method that belongs to any of these groups is invoked.
+@AfterGroups: The list of groups that this configuration method will run after. This method is guaranteed to run shortly after the last test method that belongs to any of these groups is invoked.
+
+
+@BeforeTest Will be called before any Test only..
+@BeforeMethod - executes before every test method e.g. The Method which uses @Test annotation.
+
+BeforeSuite
+'   BeforeTest
+'   '   BeforeClass
+'   '   '   BeforeMethod
+'   '   '   '   myTestMethod3 ( @Test )
+'   '   '   AfterMethod
+'   '   '   BeforeMethod
+'   '   '   '   myTestMethod4 ( @Test )
+'   '   '   AfterMethod
+'   '   AfterClass
+'   AfterTest
+'   BeforeTest
+'   '   BeforeClass
+'   '   '   BeforeMethod
+'   '   '   '   myTestMethod1 ( @Test )
+'   '   '   AfterMethod
+'   '   '   BeforeMethod
+'   '   '   '   myTestMethod2 ( @Test )
+'   '   '   AfterMethod
+'   '   AfterClass
+'   '   BeforeClass
+'   '   '   BeforeMethod
+'   '   '   '   myTestMethod3 ( @Test )
+'   '   '   AfterMethod
+'   '   '   BeforeMethod
+'   '   '   '   myTestMethod4 ( @Test )
+'   '   '   AfterMethod
+'   '   AfterClass
+'   AfterTest
+AfterSuite
+
+
+before suite - launch browser
+before test - add/delete cache 
+suite1 
+suite2
+suite3
+after test  -cache clear
+after suite - close browser
+===========================================================================================================================
+Keyboard events - 
+
+How to press ENTER ?
+driver.findElement(By.id("Value")).sendKeys(Keys.ENTER); 
+or
+driver.findElement(By.id("Value")).sendKeys(Keys.RETURN);
+============================================================================================================================
+WebElement methods - 
+
+element.clear();
+element.sendKeys();
+element.click();
+element.isDisplayed();
+element.isEnabled();
+element.isSelected();
+element.submit();
+element.getText();
+element.getTagName();
+element.getSize();
+element.getLocation();
+element.getAttribute();
+element.getCssValue();
+==========================================================================================================================
+Assertions - 
+
+Hard Assertion - Hard Assertion is an Assertion that throws the AssertException when the test case is failed.
+Suppose we have two test cases in a suite. The first test case in a suite has an assertion that fails, and if we want to 
+run the second case in a suit, then we need to handle the assertion error.
+
+    AssertEquals
+    AssertNotEquals
+    AssertTrue
+    AssertFalse
+    AssertNull
+    AssertNotNull
+
+soft Assertion - if we want to execute the whole script even if the assertion fails, we use soft Assertion.
+===========================================================================================================================
+These methods are used to get information about a particular element
+
+    getLocation() : Element is where on the page.
+    getSize() : It Returns width and height of the element.
+    getTagName() : It gets the tag name of the current element.
+    getText() : It gets visible text for an element.
+    
+
+Actions - is a class having all the methods like build(), contextClick(), clickAndHold(), doubleClick()
+Action is an interface with method perform()
+
+Actions act=new Actions(driver); 
+
+========================================================================================================================
+Selenium Grid - Hub + node
+Run test on Hub, execution is done by nodes.
+Selenium RC - Run your tests against different browsers, operating systems, and machines all at the same time
+Save time in the execution of your test suites.
+maximum 5 tests can run concurrent on a node.
+Default timeout for Selenium grid is 300 seconds.
+
+Download selenium server(formerly selenium RC server)
+
+To design test scripts that will run on the grid, we need to use DesiredCapabilites and the RemoteWebDriver objects.
+
+    DesiredCapabilites is used to set the type of browser and OS that we will automate.
+    RemoteWebDriver is used to set which node (or machine) that our test will run against.
+
+==========================================================================================================================
+Selenium IDE - 
+
+Assert  - test stops when fail
+Verify - test continues when fail
+
+Commands : 
+Action oriented - open, close, type, click
+Accessors - store
+Assertion  -verify, Assert
+
+store commands - store text, title, value, store
+
+Advantages
+
+    Selenium IDE is very easy to use.
+    It has the capability to convert the test to different programming languages such as html, java etc
+    Programming language experience is not required for Selenium IDE.
+    Selenium IDE provides Logging capabilities using file login plug-in.
+    In Selenium IDE, user can debug and set breakpoints.
+    Selenium IDE is flexible for the users.
+    It supports iteration and conditional statement
+
+Disadvantage
+
+    Selenium IDE doesn't support error handling.
+    Doesn't support test script grouping.
+    Selenium IDE do not support Database testing.
+
+========================================================================================================
+Maven - 
+
+    validate - validate the project is correct and all necessary information is available
+    compile - compile the source code of the project.
+    test - test the compiled source code using a suitable unit testing framework. These tests should not require the code be packaged or deployed
+    package - take the compiled code and package it in its distributable format, such as a JAR.
+    verify - run any checks on results of integration tests to ensure quality criteria are met
+    install - install the package into the local repository, for use as a dependency in other projects locally
+    deploy - done in the build environment, copies the final package to the remote repository for sharing with other
+    developers and projects.
+    
+Maven searches for the dependencies in the following order:
+There are 3 types of maven repository:
+
+    Local Repository
+    Central Repository
+    Remote Repository
+
+Local repository then Central repository then Remote repository.
+
+
+================================================================================================================
+
+Selenium Grid - 
+
+launch Grid - java -jar selenium-server-standalone-2.45.0.jar -role hub
+launch node and register to grid - 
+java -jar selenium-server-standalone-2.45.0.jar -role webdriver -hub "http://localhost:4444/grid/register"
+
+Grid Server - 
+	Load balancing on the nodes.
+	Distributing the tests to the right nodes.
+	
+Selenium test for it to be submitted through Grid into a Remote Firefox browser?
+DesiredCapabilities capability = DesiredCapabilities.firefox();
+WebDriver driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), capability);
+
+============================================================================================================================
+
+AutoIt - we know selenium works with web based app only, so if there is any window based pop ups like file uploading,
+window pop ups. Selecting from your local drive is not possible directly through selenium.
+
+Handling window authentication pop up - You cannot inspect these pop ups since they are not html based.
+we can pass username and password along with the url
+driver.get("http://username:password@google.com/");
+By this it gets saved in browser memory.
+
+Go to AutoIt folder, create a script to actually select a file from your desktop.
+ControlFocus - is concatenation of Title,Class+Instance
+ControlFocus("Open","","Edit1")
+
+save file as .au3 extension.
+comfile the file
+.exe file is generated.
+
+
+Maven repostiry - Local, central, Remote
+================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+driver.findElement(By.name("s")).sendKeys(Keys.F5);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

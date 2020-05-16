@@ -1,0 +1,53 @@
+Map - Hashmap,LinkedHashMap,Treemap -------------->
+
+hashmap - Insertion order not maintained,one null key and multiple null values allowed, fast, traversed by Iterator.
+linkedhashpmap - insertion order maintained
+treemap - maintain sorted order of keys, ascending order
+hashtable - dsnt allow null, slow, traversed by Enumerator and Iterator.
+HashMap<typeofkey typeofvalue>     HashMap<Integer, String>
+
+Set - Hashset,Linkedhashset, treeset  -------------->
+HashSet - insertion order not maintained, duplicate not allowed.
+LinkedHashSet - insertion order maintained, duplicate not allowed.
+TreeSet - maintain sorted order of set, duplicate not allowed.
+
+Diff btw hashmap and hashtable ----------->  ?
+hashmap is non synchronised, hashtable is synchronised i.e thread safe.
+For each key there will be an object and for each object there will be a 32 bit hashcode assigned by jvm.
+
+ArrayList -------------->
+Resizeable array.
+can have duplicate elements, maintain insertion order, Heterogeneous objects, non synchronized, slow.
+null insertion possible.
+
+when we go for LinkedList instead of ArrayList ?
+
+Linkedlist ?
+Arraylist is best when you want to retrieve elements. but if you wan to add or delete elements in the 
+middle arraylist is the worst. But adding and removing in the middle at any index linkedlist is the best.
+but retrieval operation is slowest in linkedlist since address of secn elements in carried by first element
+and so on. so retrieval becomes slow.
+- hetrogenous, null, duplicate, 
+
+how elements are stored in hashtable ?
+problem with linkedlist was retreival in sequecne order only.
+element/size = location
+
+what is array ?
+Using array we can store more than 1 element into a variable.
+In java since everything is object, the syntax of array becomes
+syntax: 
+type[] name;
+String[] cars = {"Volvo", "BMW", "Ford", "Mazda"};
+int[] myNum = {10, 20, 30, 40};
+int[] myNum = new int[size];
+
+Set - Set is an interface which extends collection interface but implements hashset,treeset,linkedhastset.
+does not allow duplicate, order not preserved, 
+
+List - 
+insertion order preserved
+duplicates allowed
+
+adding to list:  l.add();
+

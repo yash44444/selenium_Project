@@ -1,0 +1,13 @@
+given()
+		headers
+		parameters ( param:path parameter, query parameter ) 
+		cookies
+when().
+		request get/post/put/delete
+then().
+		assertion
+extract().
+		response
+		
+
+		

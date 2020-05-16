@@ -1,0 +1,50 @@
+JSON - java script object notation. It represents structured data.
+json was originally created to hold structured data to be used in java script.It is the most popular
+way of sending data for web APIs. When exchanging data between a browser and a server, the data can only
+be text.JSON is text, and we can convert any JavaScript object into JSON, and send JSON to the server.
+
+object in json are dictionary i.e key-value pair enclosed in {  }
+Arrays: [2,'joy', true, -5.0]
+
+{
+"song":
+	{
+		"title": "its my life",
+		"artist": "justin bieber",
+		"muvie":
+			["titanic","red sea","hell"]
+	}
+}
+
+Curly braces hold objects.Since this start with a curly bracket, that means it is a object. 
+There are 2 objects as there are 2 curly brackets.
+key is song. Inside song there are 3 more keys. 
+Data is separated by commas.
+Both key and value shud be enclosed in inverted commas.
+
+=========================================================================================================
+XML - first line of xml indicates version, character encoding.
+content is inscribed btw tags, start tag and end tag.
+
+XML does not do anything. XML is just information wrapped in tags.Someone must write a piece of software
+to send, receive, store, or display it:
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<song>    							  --- root element	
+	<music category="cooking">   	  --- child element, music attribute
+		<song name="its my life"/>    --- sub child element 1
+		<song name="thunder"/>		  --- sub child element 2
+	</music>
+</song>
+
+Commenting :   start by   <!--     
+			   end   by   -->
+			   
+Schemas - describe the structure of xml file. Metadata present in XSD file .. xml schema definition file.
+It describes what tags, attribues, types are present.
+UTF-8 is the default character encoding for XML documents.			   
+In XML, the attribute values must always be quoted ex: cooking
+
+
+
+	

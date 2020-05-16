@@ -1,0 +1,54 @@
+swagger - is a way to define an API. The API deifnition describes :
+	1) what requests are available
+	2) what the response looks like for each request.
+	3) all the things what you can do with an API
+	4) Lets you design the API before implementing it.
+	5) After swagger 2.0, the specification became open API specification ( OAS ).
+	6) contains description of all the parameters which ones are mandatory and which ones are optional.
+	7) schemas are defined for each of the parameters.
+	8) sample request and responses are provided.
+	
+Request contain - Method, base url, path parameter, query parameter
+
+Security - means authentication and authorization.
+Can be: none, Basic Auth, API key, OAuth.
+
+============================================================================================================
+YAML - swagger uses structured data for API definition. we have 2 structured data formats - JSON or YAML.
+YAML ain't markup language.Its not a markup language like html. Used for data not content.
+Compared to json it minimises the characters.
+
+"A markup language is a computer language that uses tags to define elements within a document.
+ It is human-readable, meaning markup files contain standard words, rather than typical programming syntax.
+ XML is called the "Extensible Markup Language" since custom tags can be used to support a wide range of
+ elements."
+ 
+ Levels are indicated by white space identing. In xml we use open and close tags to indicate levels. This
+ uses a lot of characters. In json we use brackets to indicate levels, less characters compared to xml.
+ In yaml we use only indentation , no open close tags unlike xml, json.
+ 
+ XML -   <name>
+ 			<firstname>Peter</firstname>
+ 			<lastname>parker</lastname>
+ 		 </name>
+ 		 
+ JSON -  name: {
+ 			"firstname": "Peter"
+ 			"lastname": "parker"
+ 		 }
+ 		 
+ YAML -  name:
+ 			firstname: Peter	
+ 			lastname: parker
+ 		
+ YAML have lists just like json have arrays. a dash indicates it is a list for the yaml file.
+ cart:
+ 	- name: joy
+ 	  age: 12
+ 	  color: black
+ 	  
+
+ 			
+ 			
+
+

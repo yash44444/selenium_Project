@@ -1,0 +1,151 @@
+Cucumber - does not automate your tcs. It is not any API that automate the tcs.
+Its a framework specifically in which you can run your tcs.Cucumber is a tool that is based on
+Behavior Driven Development (BDD) methodology.
+
+Gherkin - language to define software behavior. Gherkin language uses several keywords to describe the
+behavior of applications such as Feature, Scenario, Scenario Outline, Given, When, Then, etc.
+
+keywords used:  Feature file, Feature, Scenario, Scenario outline, Step definition.
+These keywords will be highlighted with the help of cucumber plugin - Natural 0.7.1
+
+Test cases are represented as Scenarios.
+
+Scenarios: This tc is about ..... .. 
+Given - pre requisites
+When - test step
+And - test step
+Then - output
+
+1)Feature - represents business requirement
+2)Feature file - Test suite containing all the feature and scenarios.The first line of the feature file 
+must start with the keyword ‘Feature’ following the description of the application under test.
+3)Step Definition - how to automate, is defined in step definition. The methods corresponding to each of 
+the given, when, then are written in step defination file. TidyGherkin chrome plugin helps in generating
+these methods automatically. If TidyGherkin plugin is not available, simply run the test runner file, 
+in the output you will get the skeleton of all the methods.
+4)Test Runner class -helps in executing the feature file. We pass stepDefination, feature file where location information in the
+ step runner file.
+ 
+feature files are written in Gherkin, while Step Definition files are written in programming languages
+such as Java, .Net, Ruby etc.
+
+Test Runner -> Login.feature -> Step Definition -> execute
+'
+----------------------- Feature file(Test Suite) -----------------------------------------------
+Feature: Application login ( Business requirement )
+
+Background: This keyword is used to define pre-requisites per feature file and applicable to all the tcs below. 
+If you have same given in all tcs, use background.
+
+Given:
+When:
+Then:
+
+@SmokeTest
+Scenario: TC1
+Given:
+when:
+Then:
+
+@SanityTest
+Scenario Outline: This keyword is used when you want to do parameterization.The Scenario Outline keyword
+				  can be used to run the same Scenario multiple times, with different combinations of 
+				  values.
+Given:
+when: user login with "John" and password "psw1"
+Then:
+And: balance displayed is "True"
+
+Examples:
+|Username|Password|Age|
+|user1	 |psw1	  |20 |
+|user2   |psw2	  |12 |
+|user3   |psw3	  |17 |
+
+When User login into application with <Username> and password <Password> and <Age>
+
+@RegTest
+Scenario: TC3
+Given:
+when:
+|User1|password1|25|5.11|     -- we can pass multiple data separated by pipe
+
+DataTable is handy for passing a list of values to a step definition
+public void user_sign_up(DataTable data) {
+	List<List<String>> obj=data.row();
+	syso(obj.get(0).get(0));
+	syso(obj.get(0).get(1));
+	syso(obj.get(0).get(2));
+}
+==========================================================================================================
+TestRunner class	 - 
+
+@RunWith(Cucumber.class)
+@CucumberOptions(  feature = "feature file path",
+				   glue = "stepDefination",
+				   tags="@SmokeTest,@RegTest,@SanityTest,
+				   dryRun=true,
+				   plugin = {"pretty:target/cucumber-json-report.json"
+				)
+Each step of feature file(Gherkin) is mapped to a corresponding method in step definition file(java).
+Cucumber Options -  tag used to provide a link between the feature files and step definition files.
+feature - location of feature file.
+Glue - location of step definition file.
+dryRun - scan all the tcs and see if all the tcs are mapped to stepDefination file.
+==========================================================================================================
+
+In case there are different pre-requisite for RegTest, SmokeTest, SanityTest then we cannot use
+Background, instead we use Hooks. Background and Hooks cannot be used together.
+Use Background if only there is SmokeTest only or RegTest only in feature file.
+
+@Before("@SmokeTest")
+public void beforeValidation() {
+}
+
+@After("@SmokeTest")
+public void beforeValidation() {
+}
+
+=========================================================================================================
+How to control test execution and run only select tcs ?
+Using tags feature
+
+How to run all tcs in single click ?
+Using Test Runner class
+
+How to run cucumber test form Maven ?
+mvn test .. .runs all the test runnner files at once.
+mvn -Dtest-TestRunner test  .. runs the desired test runnner file.
+=========================================================================================================
+POJO - Plain old java object
+Every class(object) in java should follow at minimum pojo rules in order to behave as real world entity.
+These rules are - 
+1) class must be public
+2) properties are private
+3) every property should have public getter and setter methods.
+4) public default constructor mandatory.
+==========================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			   
+
