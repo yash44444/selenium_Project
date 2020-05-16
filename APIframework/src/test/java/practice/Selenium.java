@@ -11,6 +11,7 @@ public class Selenium {
 		System.setProperty("webdriver.Firefox.driver","C:\\Users\\YashuVerma\\Desktop\\Drivers\\geckodriver.exe" );
 		WebDriver driver=new FirefoxDriver();
 		driver.get("https://www.google.com/");
+		System.out.println("mozilla firefox");
 
 	}
 
